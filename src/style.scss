@@ -1,0 +1,340 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+html {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+
+  background-color: $bgColor;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  height: 50px;
+  width: 105vmin;
+}
+
+.wood {
+  max-width: calc(100% - 11vmin);
+  position: relative;
+  left: 11vmin;
+  z-index: -1;
+}
+
+.tree {
+  @include tree(6.7vmin, darken($tree, 3%));
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+
+  &:nth-child(2) {
+    @include tree(8.5vmin, darken($tree, 15%));
+    position: absolute;
+    left: 9vmin;
+    bottom: 0;
+    z-index: 0;
+  }
+
+  &:nth-child(3) {
+    @include tree(4vmin, lighten($tree, 3%));
+    position: absolute;
+    left: 15vmin;
+    bottom: 0;
+  }
+
+  &:nth-child(4) {
+    @include tree(7.77vmin, $tree);
+    position: absolute;
+    left: 22vmin;
+    bottom: 0;
+    z-index: 3;
+  }
+
+  &:nth-child(5) {
+    @include tree(10vmin, adjust-hue($tree, 30%));
+    position: absolute;
+    left: 30vmin;
+
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.8;
+  }
+
+  &:nth-child(6) {
+    @include tree(6.77vmin, darken($tree, 7%));
+    position: absolute;
+    left: 40vmin;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  &:nth-child(7) {
+    @include tree(7.66vmin, darken($tree, 10%));
+    position: absolute;
+    left: 50vmin;
+    bottom: 0;
+    z-index: 1;
+  }
+}
+
+.land {
+  height: 25vmin;
+  width: 100%;
+  border-radius: 25vmin;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 25vmin;
+    width: 100%;
+    border-radius: 25vmin;
+    background-color: $land;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -7.7vmin;
+    height: 25vmin;
+    border-radius: 8vmin;
+    width: 50%;
+    background: darken($land, 5%);
+    z-index: -2;
+  }
+}
+
+.pond {
+  position: absolute;
+  height: 12vmin;
+  width: 46%;
+  border-radius: 5vmin;
+  background: $water;
+  left: 2%;
+  bottom: -6vmin;
+
+  .wave {
+    content: "";
+    height: 2.1vmin;
+    width: 20vmin;
+    border-radius: 0 2vmin 2vmin 0;
+    background-color: darken($water, 10%); // fix
+    background-image: radial-gradient(
+      circle at 0% 1vmin,
+      $water 5%,
+      transparent 5%
+    );
+    position: absolute;
+    top: 0;
+    left: 18vmin;
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        top: ($i - 1) * 2vmin;
+
+        @if $i % 2 != 0 {
+          @if $i == 1 {
+            left: $i + 15vmin;
+          }
+        }
+
+        @if $i % 2 == 0 {
+          left: calc(14vmin - #{$i}vmin);
+
+          @if $i == 6 {
+            left: calc(18vmin - #{$i}vmin);
+          }
+
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+.logs {
+  position: absolute;
+  top: 10vmin;
+  left: 10vmin;
+  z-index: 2;
+
+  height: 2vmin;
+  width: 9vmin;
+  border-radius: 2vmin;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0vmin;
+    left: -2vmin;
+    height: 2vmin;
+    z-index: -1;
+    width: 10vmin;
+    border-radius: 2vmin;
+    box-shadow: 0.2vmin 1vmin 0px 0.2vmin darken($land, 10%);
+  }
+}
+
+.log {
+  @include log();
+
+  &:nth-child(2) {
+    top: -2.5vmin;
+    left: -3vmin;
+    z-index: -1;
+  }
+
+  &:nth-child(3) {
+    top: -7.2vmin;
+    left: -1.5vmin;
+    z-index: -1;
+  }
+}
+
+.pole {
+  opacity: 0;
+  position: relative;
+  top: 5vmin;
+  left: 50vmin;
+  height: 8vmin;
+  width: 0.5vmin;
+  background: $pole;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -4vmin;
+    left: -1.5vmin;
+    height: 3vmin;
+    width: 3vmin;
+    background: transparent;
+    border-bottom: 0.5vmin solid $pole;
+    border-right: 0.5vmin solid $pole;
+    transform: rotate(45deg);
+  }
+}
+
+.campfire {
+  height: 1vmin;
+  left: 65vmin;
+  top: 10vmin;
+  width: 20vmin;
+  z-index: 1;
+  position: relative;
+
+  .fire-logs {
+    position: absolute;
+    bottom: 0;
+    left: 1.25vmin;
+    height: 2.5vmin;
+    width: 2.5vmin;
+    border-radius: 2.5vmin;
+
+    background-image: radial-gradient(
+      circle at 50% 50%,
+      #f8cba8 5%,
+      darken(#f8cba8, 55%) 60%,
+      darken($log, 2%) 60%
+    );
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0.5vmin;
+      left: -2.8vmin;
+      height: 2vmin;
+      width: 5vmin;
+      border-radius: 2.3vmin;
+
+      background-image: radial-gradient(
+        circle at 23% 50%,
+        #f8cba8 5%,
+        darken(#f8cba8, 55%) 25%,
+        $log 25%,
+        $log 32%,
+        lighten($log, 5%) 32%
+      );
+      z-index: -1;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0.5vmin;
+      left: 0.2vmin;
+      height: 2vmin;
+      width: 5vmin;
+      border-radius: 2.3vmin;
+
+      background-image: radial-gradient(
+        circle at 78% 50%,
+        #f8cba8 5%,
+        darken(#f8cba8, 55%) 25%,
+        darken($log, 5%) 32%,
+        darken($log, 5%) 32%
+      );
+      z-index: -1;
+    }
+  }
+
+  .fire {
+    position: relative;
+    top: -2.5vmin;
+    left: 2.3vmin;
+    height: 1vmin;
+    width: 0.5vmin;
+    background: #fff;
+    z-index: -1;
+    border-radius: 0 100%;
+    box-shadow: 0vmin 0vmin 0 0.7vmin #f9ed10, -0.3vmin -0.5vmin 0 2vmin #f18521;
+    transform: rotate(40deg);
+  }
+}
+
+.tent {
+  width: 30vmin;
+  height: 30vmin;
+  border-radius: 50%;
+  position: relative;
+  left: 60vmin;
+  top: -15vmin;
+  // z-index: 20;
+
+  background: conic-gradient(#e74925 25%, transparent 0 75%, #fbbd11 20%);
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 14vmin;
+    left: -1vmin;
+
+    height: 2vmin;
+    width: 32vmin;
+    border-radius: 2vmin;
+
+    box-shadow: inset 0 0 0 4vmin darken($land, $amount: 10%);
+    z-index: -1;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 15vmin;
+    left: 8.5vmin;
+
+    height: 8vmin;
+    width: 13vmin;
+    border-radius: 10vmin 10vmin 0 0;
+    background: #2c3711;
+  }
+}

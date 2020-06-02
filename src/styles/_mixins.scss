@@ -1,0 +1,71 @@
+@mixin tree($size, $color) {
+  $size-level-2: $size * 1.5;
+  $size-level-3: $size-level-2 * 1.4;
+
+  position: relative;
+  background-color: $invis;
+
+  width: 0;
+  height: 0;
+  border-left: $size-level-3 solid $invis;
+  border-right: $size-level-3 solid $invis;
+  border-bottom: $size-level-3 * 1.4 solid $color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -$size-level-2 / 2;
+    right: -$size-level-2;
+    border-left: $size-level-2 solid $invis;
+    border-right: $size-level-2 solid $invis;
+    border-bottom: $size-level-2 * 1.4 solid $color;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -$size-level-3 / 1.5;
+    right: -$size;
+    border-left: $size solid $invis;
+    border-right: $size solid $invis;
+    border-bottom: $size * 1.4 solid $color;
+  }
+}
+
+@mixin log {
+  width: 8vmin;
+  height: 2.5vmin;
+  border-radius: 2vmin;
+  position: relative;
+
+  background-image: radial-gradient(
+      circle at 15% 50%,
+      #f8cba8 5%,
+      darken(#f8cba8, 55%) 18%,
+      darken($log, 10%) 18%,
+      transparent 20%
+    ),
+    linear-gradient($log 70%, darken($log, 20%));
+
+  .line {
+    width: 3.5vmin;
+    height: 0.3vmin;
+    border-radius: 1vmin;
+    position: absolute;
+    top: 0.5vmin;
+    left: 3vmin;
+    background: darken($log, 10%);
+
+    &::before {
+      content: "";
+      width: 3vmin;
+      height: 0.3vmin;
+      border-radius: 1vmin;
+      position: absolute;
+      top: 0.5vmin;
+      left: 1vmin;
+      background: darken($log, 10%);
+      z-index: 1;
+    }
+  }
+}
