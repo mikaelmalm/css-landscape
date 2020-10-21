@@ -40,8 +40,8 @@
 
   background-image: radial-gradient(
       circle at 15% 50%,
-      #f8cba8 5%,
-      darken(#f8cba8, 55%) 18%,
+      $logInner 5%,
+      darken($logInner, 55%) 18%,
       darken($log, 10%) 18%,
       transparent 20%
     ),

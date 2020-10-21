@@ -19,7 +19,7 @@ body {
 
 main {
   height: 50px;
-  width: 105vmin;
+  width: 80vmin;
 }
 
 .wood {
@@ -30,39 +30,39 @@ main {
 }
 
 .tree {
-  @include tree(6.7vmin, darken($tree, 3%));
+  @include tree(4.7vmin, darken($tree, 3%));
   position: absolute;
   left: 0;
   bottom: 0;
   z-index: 1;
 
   &:nth-child(2) {
-    @include tree(8.5vmin, darken($tree, 15%));
+    @include tree(6.5vmin, darken($tree, 15%));
     position: absolute;
-    left: 9vmin;
+    left: 6vmin;
     bottom: 0;
     z-index: 0;
   }
 
   &:nth-child(3) {
-    @include tree(4vmin, lighten($tree, 3%));
+    @include tree(2vmin, lighten($tree, 3%));
     position: absolute;
-    left: 15vmin;
+    left: 13vmin;
     bottom: 0;
   }
 
   &:nth-child(4) {
-    @include tree(7.77vmin, $tree);
+    @include tree(5.77vmin, $tree);
     position: absolute;
-    left: 22vmin;
+    left: 18vmin;
     bottom: 0;
     z-index: 3;
   }
 
   &:nth-child(5) {
-    @include tree(10vmin, adjust-hue($tree, 30%));
+    @include tree(8vmin, adjust-hue($tree, 30%));
     position: absolute;
-    left: 30vmin;
+    left: 20vmin;
 
     bottom: 0;
     z-index: -1;
@@ -70,17 +70,17 @@ main {
   }
 
   &:nth-child(6) {
-    @include tree(6.77vmin, darken($tree, 7%));
+    @include tree(4.27vmin, darken($tree, 7%));
     position: absolute;
-    left: 40vmin;
+    left: 30vmin;
     bottom: 0;
     z-index: 2;
   }
 
   &:nth-child(7) {
-    @include tree(7.66vmin, darken($tree, 10%));
+    @include tree(5.66vmin, darken($tree, 10%));
     position: absolute;
-    left: 50vmin;
+    left: 33vmin;
     bottom: 0;
     z-index: 1;
   }
@@ -125,15 +125,11 @@ main {
 
   .wave {
     content: "";
-    height: 2.1vmin;
+    height: 2.11vmin; // abit bigger to remove bug with lines not matching perfectly
     width: 20vmin;
     border-radius: 0 2vmin 2vmin 0;
-    background-color: darken($water, 10%); // fix
-    background-image: radial-gradient(
-      circle at 0% 1vmin,
-      $water 5%,
-      transparent 5%
-    );
+    background-color: darken($water, 10%);
+    background-image: radial-gradient(circle at 0% 1vmin, $water 5%, $invis 5%);
     position: absolute;
     top: 0;
     left: 18vmin;
@@ -143,16 +139,18 @@ main {
         top: ($i - 1) * 2vmin;
 
         @if $i % 2 != 0 {
+          left: $i + 7vmin;
+
           @if $i == 1 {
-            left: $i + 15vmin;
+            left: $i + 10vmin;
           }
         }
 
         @if $i % 2 == 0 {
-          left: calc(14vmin - #{$i}vmin);
+          left: calc(10vmin - #{$i}vmin);
 
           @if $i == 6 {
-            left: calc(18vmin - #{$i}vmin);
+            left: calc(15vmin - #{$i}vmin);
           }
 
           transform: rotate(180deg);
@@ -164,9 +162,9 @@ main {
 
 .logs {
   position: absolute;
-  top: 10vmin;
-  left: 10vmin;
-  z-index: 2;
+  top: 6vmin;
+  left: 37vmin;
+  z-index: -1;
 
   height: 2vmin;
   width: 9vmin;
@@ -201,33 +199,64 @@ main {
   }
 }
 
-.pole {
-  opacity: 0;
+.food {
   position: relative;
-  top: 5vmin;
-  left: 50vmin;
-  height: 8vmin;
-  width: 0.5vmin;
-  background: $pole;
 
-  &::before {
-    content: "";
+  .pole {
     position: absolute;
-    top: -4vmin;
-    left: -1.5vmin;
-    height: 3vmin;
-    width: 3vmin;
-    background: transparent;
-    border-bottom: 0.5vmin solid $pole;
-    border-right: 0.5vmin solid $pole;
-    transform: rotate(45deg);
+    top: 4vmin;
+    left: 10vmin;
+    height: 8vmin;
+    width: 0.5vmin;
+    background: $pole;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -3.5vmin;
+      left: -1.3vmin;
+      height: 3vmin;
+      width: 3vmin;
+      background: $invis;
+      border-bottom: 0.5vmin solid $pole;
+      transform: rotate(45deg);
+      z-index: -1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -3.2vmin;
+      left: -1.5vmin;
+      height: 3vmin;
+      width: 3vmin;
+      background: $invis;
+
+      border-right: 0.5vmin solid $pole;
+      transform: rotate(45deg);
+      z-index: 1;
+    }
+
+    &:nth-child(2) {
+      left: 25vmin;
+    }
+  }
+
+  .stick {
+    height: 0.5vmin;
+    width: 20vmin;
+    background: darken($log, 10%);
+
+    position: absolute;
+    left: 8vmin;
+    top: 3.4vmin;
   }
 }
 
 .campfire {
   height: 1vmin;
-  left: 65vmin;
-  top: 10vmin;
+  left: 15.5vmin;
+  top: 13vmin;
   width: 20vmin;
   z-index: 1;
   position: relative;
@@ -242,8 +271,8 @@ main {
 
     background-image: radial-gradient(
       circle at 50% 50%,
-      #f8cba8 5%,
-      darken(#f8cba8, 55%) 60%,
+      $logInner 5%,
+      darken($logInner, 55%) 60%,
       darken($log, 2%) 60%
     );
 
@@ -258,8 +287,8 @@ main {
 
       background-image: radial-gradient(
         circle at 23% 50%,
-        #f8cba8 5%,
-        darken(#f8cba8, 55%) 25%,
+        $logInner 5%,
+        darken($logInner, 55%) 25%,
         $log 25%,
         $log 32%,
         lighten($log, 5%) 32%
@@ -278,8 +307,8 @@ main {
 
       background-image: radial-gradient(
         circle at 78% 50%,
-        #f8cba8 5%,
-        darken(#f8cba8, 55%) 25%,
+        $logInner 5%,
+        darken($logInner, 55%) 25%,
         darken($log, 5%) 32%,
         darken($log, 5%) 32%
       );
@@ -293,10 +322,11 @@ main {
     left: 2.3vmin;
     height: 1vmin;
     width: 0.5vmin;
-    background: #fff;
+    background: $light;
     z-index: -1;
     border-radius: 0 100%;
-    box-shadow: 0vmin 0vmin 0 0.7vmin #f9ed10, -0.3vmin -0.5vmin 0 2vmin #f18521;
+    box-shadow: 0vmin 0vmin 0 0.7vmin $fireYellow,
+      -0.3vmin -0.5vmin 0 2vmin $fireOrange;
     transform: rotate(40deg);
   }
 }
@@ -306,11 +336,10 @@ main {
   height: 30vmin;
   border-radius: 50%;
   position: relative;
-  left: 60vmin;
-  top: -15vmin;
-  // z-index: 20;
+  left: 40vmin;
+  top: -5vmin;
 
-  background: conic-gradient(#e74925 25%, transparent 0 75%, #fbbd11 20%);
+  background: conic-gradient($tent1 25%, $invis 0 75%, $tent2 20%);
 
   &:before {
     content: "";
@@ -322,19 +351,65 @@ main {
     width: 32vmin;
     border-radius: 2vmin;
 
-    box-shadow: inset 0 0 0 4vmin darken($land, $amount: 10%);
+    box-shadow: inset 0 0 0 4vmin darken($land, 10%);
     z-index: -1;
   }
 
   &:after {
     content: "";
     position: absolute;
-    bottom: 15vmin;
+    bottom: 14.99vmin;
     left: 8.5vmin;
 
     height: 8vmin;
     width: 13vmin;
     border-radius: 10vmin 10vmin 0 0;
-    background: #2c3711;
+    background: darken($land, 35%);
+  }
+}
+
+.clouds {
+  height: 20vmin;
+  width: 70vmin;
+  position: absolute;
+  top: 10vmin;
+
+  .cloud {
+    height: 3vmin;
+    width: 5vmin;
+    background: $light;
+    position: absolute;
+    left: 0;
+
+    border-radius: 3vmin 3vmin 0 0;
+
+    &:after {
+      content: "";
+      height: 2vmin;
+      width: 4vmin;
+      background: $light;
+      position: absolute;
+      left: 3.5vmin;
+      top: 1vmin;
+      border-radius: 3vmin 3vmin 0 0;
+    }
+
+    &:nth-child(2) {
+      left: 35vmin;
+      top: 5vmin;
+
+      &:after {
+        left: -3vmin;
+      }
+    }
+
+    &:nth-child(3) {
+      left: 55vmin;
+      top: 2vmin;
+
+      &:after {
+        left: -2vmin;
+      }
+    }
   }
 }
